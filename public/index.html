@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Waste Management Platform</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <i class="fas fa-recycle"></i>
+                <span>EcoWaste</span>
+            </div>
+            <div class="nav-menu" id="navMenu">
+                <a href="#home" class="nav-link active">Home</a>
+                <a href="#report" class="nav-link">Report</a>
+                <a href="#ai-assistant" class="nav-link">AI Assistant</a>
+                <a href="#rewards" class="nav-link">Rewards</a>
+                <a href="#map" class="nav-link">Map</a>
+                <a href="#profile" class="nav-link">Profile</a>
+            </div>
+            <div class="nav-actions">
+                <div class="user-points" id="userPoints">
+                    <i class="fas fa-coins"></i>
+                    <span>0 Points</span>
+                </div>
+                <button class="login-btn" id="loginBtn">Login</button>
+                <div class="user-menu" id="userMenu" style="display: none;">
+                    <div class="user-info">
+                        <span id="userName">User</span>
+                        <span id="userLevel" class="user-level">Bronze</span>
+                    </div>
+                    <button class="logout-btn" id="logoutBtn">Logout</button>
+                </div>
+            </div>
+            <div class="nav-toggle" id="navToggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Home Section -->
+        <section id="home" class="section active">
+            <!-- Hero Section -->
+            <div class="hero">
+                <div class="hero-content">
+                    <h1>Smart Waste Management for a Cleaner Future</h1>
+                    <p>Join thousands of citizens making a difference. Report waste issues, get AI-powered segregation assistance, and earn rewards for sustainable actions.</p>
+                    <div class="hero-actions">
+                        <button class="btn btn-primary" onclick="showSection('report')">Report Issue</button>
+                        <button class="btn btn-secondary" onclick="showSection('ai-assistant')">AI Assistant</button>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <div class="hero-illustration">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stats Dashboard -->
+            <div class="stats-grid" id="userStatsGrid">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-flag"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3 id="userReports">0</h3>
+                        <p>Reports Submitted</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-coins"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3 id="userPointsDisplay">0</h3>
+                        <p>Points Earned</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3 id="userRank">-</h3>
+                        <p>Community Rank</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3 id="co2Saved">0 kg</h3>
+                        <p>CO₂ Saved</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="quick-actions">
+                <h2>Quick Actions</h2>
+                <div class="action-grid">
+                    <div class="action-card" onclick="showSection('report')">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <h3>Report Overflowing Bin</h3>
+                        <p>Alert authorities about bins that need immediate attention</p>
+                    </div>
+                    <div class="action-card" onclick="showSection('ai-assistant')">
+                        <i class="fas fa-camera"></i>
+                        <h3>Identify Waste</h3>
+                        <p>Use AI to identify proper waste segregation</p>
+                    </div>
+                    <div class="action-card" onclick="showSection('map')">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <h3>Find Nearby Bins</h3>
+                        <p>Locate waste bins and recycling centers near you</p>
+                    </div>
+                    <div class="action-card" onclick="showSection('rewards')">
+                        <i class="fas fa-gift"></i>
+                        <h3>Redeem Rewards</h3>
+                        <p>Exchange points for exciting rewards and discounts</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Community Impact -->
+            <div class="community-impact">
+                <h2>Community Impact</h2>
+                <div class="impact-grid" id="communityImpact">
+                    <div class="impact-card">
+                        <i class="fas fa-users"></i>
+                        <h3 id="activeUsers">0</h3>
+                        <p>Active Users</p>
+                    </div>
+                    <div class="impact-card">
+                        <i class="fas fa-recycle"></i>
+                        <h3 id="totalRecycled">0 kg</h3>
+                        <p>Total Recycled</p>
+                    </div>
+                    <div class="impact-card">
+                        <i class="fas fa-tree"></i>
+                        <h3 id="treesEquivalent">0</h3>
+                        <p>Trees Saved</p>
+                    </div>
+                    <div class="impact-card">
+                        <i class="fas fa-tint"></i>
+                        <h3 id="waterSaved">0L</h3>
+                        <p>Water Saved</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Report Section -->
+        <section id="report" class="section">
+            <div class="section-header">
+                <h2>Report Waste Issue</h2>
+                <p>Help keep your community clean by reporting waste management issues</p>
+            </div>
+
+            <div class="report-form-container">
+                <form id="reportForm" class="report-form">
+                    <div class="form-group">
+                        <label for="reportType">Issue Type</label>
+                        <select id="reportType" required>
+                            <option value="">Select issue type</option>
+                            <option value="overflowing_bin">Overflowing Bin</option>
+                            <option value="pickup_request">Pickup Request</option>
+                            <option value="maintenance_needed">Maintenance Needed</option>
+                            <option value="illegal_dumping">Illegal Dumping</option>
+                            <option value="recycling_assistance">Recycling Assistance</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="reportDescription">Description</label>
+                        <textarea id="reportDescription" placeholder="Describe the issue in detail..." required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="reportLocation">Location</label>
+                        <input type="text" id="reportLocation" placeholder="Enter address or landmark" required>
+                        <button type="button" class="btn btn-secondary" id="getCurrentLocation">
+                            <i class="fas fa-location-arrow"></i> Use Current Location
+                        </button>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="reportImages">Upload Images (Optional)</label>
+                        <div class="file-upload">
+                            <input type="file" id="reportImages" multiple accept="image/*">
+                            <div class="file-upload-text">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <span>Click to upload or drag images here</span>
+                            </div>
+                        </div>
+                        <div id="imagePreview" class="image-preview"></div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary" onclick="showSection('home')">Cancel</button>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-paper-plane"></i> Submit Report
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Recent Reports -->
+            <div class="recent-reports">
+                <h3>Your Recent Reports</h3>
+                <div id="recentReportsList" class="reports-list">
+                    <!-- Reports will be loaded here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- AI Assistant Section -->
+        <section id="ai-assistant" class="section">
+            <div class="section-header">
+                <h2>AI Waste Segregation Assistant</h2>
+                <p>Upload an image or describe your waste item to get proper segregation guidance</p>
+            </div>
+
+            <div class="ai-assistant-container">
+                <!-- Image Upload -->
+                <div class="ai-upload-section">
+                    <div class="upload-area" id="aiUploadArea">
+                        <input type="file" id="aiImageInput" accept="image/*" style="display: none;">
+                        <div class="upload-content">
+                            <i class="fas fa-camera"></i>
+                            <h3>Upload Image for Analysis</h3>
+                            <p>Take a photo or upload an image of the waste item</p>
+                            <button type="button" class="btn btn-primary" onclick="document.getElementById('aiImageInput').click()">
+                                Choose Image
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="ai-result" id="aiResult" style="display: none;">
+                        <div class="result-header">
+                            <h3>Analysis Result</h3>
+                            <button class="btn btn-secondary" id="analyzeAnother">Analyze Another</button>
+                        </div>
+                        <div class="result-content">
+                            <div class="result-image">
+                                <img id="analyzedImage" src="" alt="Analyzed item">
+                            </div>
+                            <div class="result-details">
+                                <div class="classification">
+                                    <span class="category-badge" id="categoryBadge"></span>
+                                    <h4 id="detectedItem"></h4>
+                                    <p class="confidence">Confidence: <span id="confidenceScore"></span>%</p>
+                                </div>
+                                <div class="disposal-tips">
+                                    <h5>Disposal Tips:</h5>
+                                    <p id="disposalTips"></p>
+                                </div>
+                                <div class="suggestions">
+                                    <h5>Additional Suggestions:</h5>
+                                    <ul id="suggestionsList"></ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Text Search -->
+                <div class="ai-search-section">
+                    <h3>Search Waste Guidelines</h3>
+                    <div class="search-container">
+                        <input type="text" id="wasteSearchInput" placeholder="e.g., plastic bottle, banana peel, battery...">
+                        <button class="btn btn-primary" id="searchWasteBtn">
+                            <i class="fas fa-search"></i> Search
+                        </button>
+                    </div>
+                    <div id="searchResults" class="search-results"></div>
+                </div>
+
+                <!-- Segregation Guidelines -->
+                <div class="segregation-guidelines">
+                    <h3>Waste Segregation Guidelines</h3>
+                    <div class="guidelines-grid" id="guidelinesGrid">
+                        <!-- Guidelines will be loaded here -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Rewards Section -->
+        <section id="rewards" class="section">
+            <div class="section-header">
+                <h2>Rewards & Achievements</h2>
+                <p>Redeem your eco-points for exciting rewards and track your achievements</p>
+            </div>
+
+            <!-- User Level Progress -->
+            <div class="level-progress">
+                <div class="level-info">
+                    <div class="level-badge" id="levelBadge">Bronze</div>
+                    <div class="level-details">
+                        <h3 id="levelTitle">Bronze Eco-Warrior</h3>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="levelProgress"></div>
+                        </div>
+                        <p id="levelDescription">Keep collecting points to reach Silver level!</p>
+                    </div>
+                </div>
+                <div class="points-display">
+                    <span class="points-number" id="totalPoints">0</span>
+                    <span class="points-label">Eco-Points</span>
+                </div>
+            </div>
+
+            <!-- Available Rewards -->
+            <div class="rewards-section">
+                <h3>Available Rewards</h3>
+                <div class="rewards-filter">
+                    <button class="filter-btn active" data-category="all">All</button>
+                    <button class="filter-btn" data-category="discount">Discounts</button>
+                    <button class="filter-btn" data-category="coupon">Coupons</button>
+                    <button class="filter-btn" data-category="badge">Badges</button>
+                    <button class="filter-btn" data-category="gift">Gifts</button>
+                </div>
+                <div id="rewardsList" class="rewards-grid">
+                    <!-- Rewards will be loaded here -->
+                </div>
+            </div>
+
+            <!-- My Rewards -->
+            <div class="my-rewards-section">
+                <h3>My Rewards</h3>
+                <div class="rewards-tabs">
+                    <button class="tab-btn active" data-tab="active">Active</button>
+                    <button class="tab-btn" data-tab="used">Used</button>
+                    <button class="tab-btn" data-tab="expired">Expired</button>
+                </div>
+                <div id="myRewardsList" class="my-rewards-list">
+                    <!-- User rewards will be loaded here -->
+                </div>
+            </div>
+
+            <!-- Leaderboard -->
+            <div class="leaderboard-section">
+                <h3>Community Leaderboard</h3>
+                <div id="leaderboard" class="leaderboard">
+                    <!-- Leaderboard will be loaded here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Map Section -->
+        <section id="map" class="section">
+            <div class="section-header">
+                <h2>Waste Bin Locator</h2>
+                <p>Find nearby waste bins and recycling centers</p>
+            </div>
+
+            <div class="map-container">
+                <div class="map-controls">
+                    <div class="filter-controls">
+                        <select id="binTypeFilter">
+                            <option value="">All Bin Types</option>
+                            <option value="recyclable">Recyclable</option>
+                            <option value="biodegradable">Biodegradable</option>
+                            <option value="hazardous">Hazardous</option>
+                            <option value="general">General</option>
+                        </select>
+                        <button class="btn btn-primary" id="findNearbyBins">
+                            <i class="fas fa-location-arrow"></i> Find Nearby
+                        </button>
+                    </div>
+                    <div class="map-legend">
+                        <div class="legend-item">
+                            <span class="legend-color recyclable"></span>
+                            <span>Recyclable</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-color biodegradable"></span>
+                            <span>Biodegradable</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-color hazardous"></span>
+                            <span>Hazardous</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-color general"></span>
+                            <span>General</span>
+                        </div>
+                    </div>
+                </div>
+                <div id="wasteMap" class="waste-map">
+                    <!-- Map will be initialized here -->
+                </div>
+                <div id="binsList" class="bins-list">
+                    <!-- Nearby bins list will be shown here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Profile Section -->
+        <section id="profile" class="section">
+            <div class="section-header">
+                <h2>My Profile</h2>
+                <p>Manage your account and view your environmental impact</p>
+            </div>
+
+            <div class="profile-container">
+                <!-- Profile Info -->
+                <div class="profile-card">
+                    <div class="profile-header">
+                        <div class="profile-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="profile-info">
+                            <h3 id="profileName">User Name</h3>
+                            <p id="profileEmail">user@example.com</p>
+                            <span class="level-badge" id="profileLevel">Bronze</span>
+                        </div>
+                    </div>
+                    <div class="profile-stats">
+                        <div class="stat">
+                            <span class="stat-value" id="profilePoints">0</span>
+                            <span class="stat-label">Points</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-value" id="profileReports">0</span>
+                            <span class="stat-label">Reports</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-value" id="profileRank">-</span>
+                            <span class="stat-label">Rank</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Environmental Impact -->
+                <div class="impact-card">
+                    <h3>Your Environmental Impact</h3>
+                    <div class="impact-metrics">
+                        <div class="metric">
+                            <i class="fas fa-leaf"></i>
+                            <div>
+                                <span id="impactCO2">0 kg</span>
+                                <label>CO₂ Reduced</label>
+                            </div>
+                        </div>
+                        <div class="metric">
+                            <i class="fas fa-tint"></i>
+                            <div>
+                                <span id="impactWater">0 L</span>
+                                <label>Water Saved</label>
+                            </div>
+                        </div>
+                        <div class="metric">
+                            <i class="fas fa-bolt"></i>
+                            <div>
+                                <span id="impactEnergy">0 kWh</span>
+                                <label>Energy Saved</label>
+                            </div>
+                        </div>
+                        <div class="metric">
+                            <i class="fas fa-tree"></i>
+                            <div>
+                                <span id="impactTrees">0</span>
+                                <label>Trees Equivalent</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Activity -->
+                <div class="activity-card">
+                    <h3>Recent Activity</h3>
+                    <div id="recentActivity" class="activity-list">
+                        <!-- Recent activity will be loaded here -->
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Login</h3>
+                <span class="close" id="closeModal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="authForm">
+                    <div class="form-group">
+                        <label for="authEmail">Email</label>
+                        <input type="email" id="authEmail" required>
+                    </div>
+                    <div class="form-group" id="nameGroup" style="display: none;">
+                        <label for="authName">Full Name</label>
+                        <input type="text" id="authName">
+                    </div>
+                    <div class="form-group">
+                        <label for="authPassword">Password</label>
+                        <input type="password" id="authPassword" required>
+                    </div>
+                    <div class="form-group" id="locationGroup" style="display: none;">
+                        <label for="authLocation">Location</label>
+                        <input type="text" id="authLocation" placeholder="City, Ward">
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-full" id="authSubmitBtn">Login</button>
+                </form>
+                <div class="auth-switch">
+                    <p id="authSwitchText">Don't have an account? <a href="#" id="authSwitchLink">Register here</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay">
+        <div class="loading-spinner">
+            <i class="fas fa-spinner fa-spin"></i>
+            <p>Loading...</p>
+        </div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <!-- Scripts -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY&libraries=places"></script>
+    <script src="script.js"></script>
+</body>
+</html>

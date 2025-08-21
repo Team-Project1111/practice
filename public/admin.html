@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Smart Waste Management</title>
+    <link rel="stylesheet" href="admin-styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <i class="fas fa-recycle"></i>
+                <span>EcoWaste Admin</span>
+            </div>
+        </div>
+        <nav class="sidebar-nav">
+            <ul>
+                <li><a href="#dashboard" class="nav-link active"><i class="fas fa-chart-line"></i> Dashboard</a></li>
+                <li><a href="#reports" class="nav-link"><i class="fas fa-flag"></i> Reports</a></li>
+                <li><a href="#bins" class="nav-link"><i class="fas fa-trash"></i> Waste Bins</a></li>
+                <li><a href="#users" class="nav-link"><i class="fas fa-users"></i> Users</a></li>
+                <li><a href="#rewards" class="nav-link"><i class="fas fa-gift"></i> Rewards</a></li>
+                <li><a href="#analytics" class="nav-link"><i class="fas fa-chart-bar"></i> Analytics</a></li>
+                <li><a href="#alerts" class="nav-link"><i class="fas fa-bell"></i> Alerts <span class="alert-count" id="alertCount">0</span></a></li>
+            </ul>
+        </nav>
+        <div class="sidebar-footer">
+            <div class="admin-info">
+                <i class="fas fa-user-shield"></i>
+                <span id="adminName">Admin</span>
+            </div>
+            <button class="logout-btn" id="adminLogout">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-left">
+                <button class="sidebar-toggle" id="sidebarToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <h1 id="pageTitle">Dashboard</h1>
+            </div>
+            <div class="header-right">
+                <div class="header-stats">
+                    <div class="stat-item">
+                        <i class="fas fa-exclamation-triangle text-warning"></i>
+                        <span id="criticalAlerts">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-clock text-info"></i>
+                        <span id="pendingReports">0</span>
+                    </div>
+                </div>
+                <div class="refresh-btn" id="refreshData">
+                    <i class="fas fa-sync-alt"></i>
+                </div>
+            </div>
+        </header>
+
+        <!-- Dashboard Section -->
+        <section id="dashboard" class="section active">
+            <!-- KPI Cards -->
+            <div class="kpi-grid">
+                <div class="kpi-card">
+                    <div class="kpi-icon">
+                        <i class="fas fa-flag"></i>
+                    </div>
+                    <div class="kpi-content">
+                        <h3 id="totalReports">0</h3>
+                        <p>Total Reports</p>
+                        <span class="kpi-trend positive" id="reportsTrend">+0%</span>
+                    </div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-icon">
+                        <i class="fas fa-trash"></i>
+                    </div>
+                    <div class="kpi-content">
+                        <h3 id="totalBins">0</h3>
+                        <p>Active Bins</p>
+                        <span class="kpi-trend" id="binsTrend">0</span>
+                    </div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="kpi-content">
+                        <h3 id="activeUsers">0</h3>
+                        <p>Active Users</p>
+                        <span class="kpi-trend positive" id="usersTrend">+0%</span>
+                    </div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="kpi-content">
+                        <h3 id="resolutionRate">0%</h3>
+                        <p>Resolution Rate</p>
+                        <span class="kpi-trend positive" id="resolutionTrend">+0%</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts Row -->
+            <div class="charts-grid">
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3>Reports Trend</h3>
+                        <select id="reportsTimeframe">
+                            <option value="7">Last 7 days</option>
+                            <option value="30" selected>Last 30 days</option>
+                            <option value="90">Last 90 days</option>
+                        </select>
+                    </div>
+                    <canvas id="reportsChart"></canvas>
+                </div>
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3>Bin Status Distribution</h3>
+                    </div>
+                    <canvas id="binStatusChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Recent Activity -->
+            <div class="activity-section">
+                <div class="activity-card">
+                    <h3>Recent Reports</h3>
+                    <div id="recentReports" class="activity-list">
+                        <!-- Recent reports will be loaded here -->
+                    </div>
+                </div>
+                <div class="activity-card">
+                    <h3>Critical Bins</h3>
+                    <div id="criticalBins" class="activity-list">
+                        <!-- Critical bins will be loaded here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ward Performance -->
+            <div class="ward-performance">
+                <h3>Ward Performance</h3>
+                <div id="wardStats" class="ward-grid">
+                    <!-- Ward statistics will be loaded here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Reports Section -->
+        <section id="reports" class="section">
+            <div class="section-header">
+                <h2>Reports Management</h2>
+                <div class="section-actions">
+                    <div class="filter-group">
+                        <select id="reportStatusFilter">
+                            <option value="">All Status</option>
+                            <option value="pending">Pending</option>
+                            <option value="acknowledged">Acknowledged</option>
+                            <option value="in_progress">In Progress</option>
+                            <option value="resolved">Resolved</option>
+                        </select>
+                        <select id="reportTypeFilter">
+                            <option value="">All Types</option>
+                            <option value="overflowing_bin">Overflowing Bin</option>
+                            <option value="pickup_request">Pickup Request</option>
+                            <option value="maintenance_needed">Maintenance</option>
+                            <option value="illegal_dumping">Illegal Dumping</option>
+                        </select>
+                        <select id="reportPriorityFilter">
+                            <option value="">All Priority</option>
+                            <option value="urgent">Urgent</option>
+                            <option value="high">High</option>
+                            <option value="medium">Medium</option>
+                            <option value="low">Low</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-primary" id="exportReports">
+                        <i class="fas fa-download"></i> Export
+                    </button>
+                </div>
+            </div>
+
+            <div class="reports-table-container">
+                <table class="data-table" id="reportsTable">
+                    <thead>
+                        <tr>
+                            <th>Report ID</th>
+                            <th>Type</th>
+                            <th>Reporter</th>
+                            <th>Location</th>
+                            <th>Priority</th>
+                            <th>Status</th>
+                            <th>Created</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="reportsTableBody">
+                        <!-- Reports will be loaded here -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="pagination" id="reportsPagination">
+                <!-- Pagination will be loaded here -->
+            </div>
+        </section>
+
+        <!-- Bins Section -->
+        <section id="bins" class="section">
+            <div class="section-header">
+                <h2>Waste Bins Management</h2>
+                <div class="section-actions">
+                    <div class="filter-group">
+                        <select id="binStatusFilter">
+                            <option value="">All Status</option>
+                            <option value="normal">Normal</option>
+                            <option value="warning">Warning</option>
+                            <option value="critical">Critical</option>
+                            <option value="overflowing">Overflowing</option>
+                            <option value="maintenance">Maintenance</option>
+                        </select>
+                        <select id="binTypeFilterAdmin">
+                            <option value="">All Types</option>
+                            <option value="recyclable">Recyclable</option>
+                            <option value="biodegradable">Biodegradable</option>
+                            <option value="hazardous">Hazardous</option>
+                            <option value="general">General</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-primary" id="addBinBtn">
+                        <i class="fas fa-plus"></i> Add Bin
+                    </button>
+                </div>
+            </div>
+
+            <div class="bins-grid" id="binsGrid">
+                <!-- Bins will be loaded here -->
+            </div>
+
+            <div class="pagination" id="binsPagination">
+                <!-- Pagination will be loaded here -->
+            </div>
+        </section>
+
+        <!-- Users Section -->
+        <section id="users" class="section">
+            <div class="section-header">
+                <h2>Users Management</h2>
+                <div class="section-actions">
+                    <div class="search-group">
+                        <input type="text" id="userSearch" placeholder="Search users...">
+                        <button class="btn btn-secondary" id="searchUsersBtn">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="users-table-container">
+                <table class="data-table" id="usersTable">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Level</th>
+                            <th>Points</th>
+                            <th>Reports</th>
+                            <th>Joined</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="usersTableBody">
+                        <!-- Users will be loaded here -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Rewards Section -->
+        <section id="rewards" class="section">
+            <div class="section-header">
+                <h2>Rewards Management</h2>
+                <div class="section-actions">
+                    <button class="btn btn-primary" id="addRewardBtn">
+                        <i class="fas fa-plus"></i> Add Reward
+                    </button>
+                </div>
+            </div>
+
+            <div class="rewards-admin-grid" id="rewardsAdminGrid">
+                <!-- Rewards will be loaded here -->
+            </div>
+        </section>
+
+        <!-- Analytics Section -->
+        <section id="analytics" class="section">
+            <div class="section-header">
+                <h2>Advanced Analytics</h2>
+                <div class="section-actions">
+                    <select id="analyticsTimeframe">
+                        <option value="7">Last 7 days</option>
+                        <option value="30" selected>Last 30 days</option>
+                        <option value="90">Last 90 days</option>
+                        <option value="365">Last year</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Environmental Impact -->
+            <div class="impact-metrics-grid">
+                <div class="metric-card">
+                    <i class="fas fa-leaf"></i>
+                    <div class="metric-content">
+                        <h3 id="totalCO2Saved">0 kg</h3>
+                        <p>CO₂ Reduced</p>
+                    </div>
+                </div>
+                <div class="metric-card">
+                    <i class="fas fa-tint"></i>
+                    <div class="metric-content">
+                        <h3 id="totalWaterSaved">0 L</h3>
+                        <p>Water Saved</p>
+                    </div>
+                </div>
+                <div class="metric-card">
+                    <i class="fas fa-bolt"></i>
+                    <div class="metric-content">
+                        <h3 id="totalEnergySaved">0 kWh</h3>
+                        <p>Energy Saved</p>
+                    </div>
+                </div>
+                <div class="metric-card">
+                    <i class="fas fa-recycle"></i>
+                    <div class="metric-content">
+                        <h3 id="totalWasteRecycled">0 kg</h3>
+                        <p>Waste Recycled</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Advanced Charts -->
+            <div class="analytics-charts">
+                <div class="chart-card large">
+                    <div class="chart-header">
+                        <h3>Collection Efficiency</h3>
+                    </div>
+                    <canvas id="efficiencyChart"></canvas>
+                </div>
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3>User Engagement</h3>
+                    </div>
+                    <canvas id="engagementChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Route Optimization -->
+            <div class="route-optimization">
+                <h3>Route Optimization</h3>
+                <div id="routeMap" class="route-map">
+                    <!-- Route optimization map will be loaded here -->
+                </div>
+                <div class="route-suggestions" id="routeSuggestions">
+                    <!-- Route suggestions will be loaded here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Alerts Section -->
+        <section id="alerts" class="section">
+            <div class="section-header">
+                <h2>System Alerts</h2>
+                <div class="section-actions">
+                    <button class="btn btn-secondary" id="markAllRead">
+                        <i class="fas fa-check"></i> Mark All Read
+                    </button>
+                </div>
+            </div>
+
+            <div class="alerts-container">
+                <div class="alert-categories">
+                    <div class="alert-category critical">
+                        <h3>Critical Alerts</h3>
+                        <div id="criticalAlertsList" class="alerts-list">
+                            <!-- Critical alerts will be loaded here -->
+                        </div>
+                    </div>
+                    <div class="alert-category warning">
+                        <h3>Warnings</h3>
+                        <div id="warningAlertsList" class="alerts-list">
+                            <!-- Warning alerts will be loaded here -->
+                        </div>
+                    </div>
+                    <div class="alert-category info">
+                        <h3>Information</h3>
+                        <div id="infoAlertsList" class="alerts-list">
+                            <!-- Info alerts will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modals -->
+    <!-- Report Details Modal -->
+    <div id="reportModal" class="modal">
+        <div class="modal-content large">
+            <div class="modal-header">
+                <h3>Report Details</h3>
+                <span class="close" id="closeReportModal">&times;</span>
+            </div>
+            <div class="modal-body" id="reportModalBody">
+                <!-- Report details will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Bin Details Modal -->
+    <div id="binModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Bin Details</h3>
+                <span class="close" id="closeBinModal">&times;</span>
+            </div>
+            <div class="modal-body" id="binModalBody">
+                <!-- Bin details will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Add/Edit Reward Modal -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="rewardModalTitle">Add Reward</h3>
+                <span class="close" id="closeRewardModal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="rewardForm">
+                    <div class="form-group">
+                        <label for="rewardTitle">Title</label>
+                        <input type="text" id="rewardTitle" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="rewardDescription">Description</label>
+                        <textarea id="rewardDescription" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="rewardCategory">Category</label>
+                        <select id="rewardCategory" required>
+                            <option value="discount">Discount</option>
+                            <option value="coupon">Coupon</option>
+                            <option value="badge">Badge</option>
+                            <option value="gift">Gift</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="rewardPoints">Points Required</label>
+                        <input type="number" id="rewardPoints" min="1" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="rewardValue">Value</label>
+                        <input type="text" id="rewardValue" placeholder="e.g., 20% off, Free coffee" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="rewardValidUntil">Valid Until</label>
+                        <input type="date" id="rewardValidUntil" required>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary" id="cancelReward">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Save Reward</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay">
+        <div class="loading-spinner">
+            <i class="fas fa-spinner fa-spin"></i>
+            <p>Loading...</p>
+        </div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <!-- Scripts -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY&libraries=places"></script>
+    <script src="admin-script.js"></script>
+</body>
+</html>
