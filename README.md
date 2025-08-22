@@ -1,305 +1,262 @@
-# Smart Waste Management & Recycling Platform
+# Folk Art Heritage Platform
 
-A comprehensive digital platform that helps cities manage waste efficiently through citizen engagement, AI-powered waste segregation, gamification, and real-time analytics.
+A comprehensive digital platform for preserving, promoting, and creating engagement around traditional Indian folk artforms - Warli, Pithora, and Madhubani. This platform connects master artists with art enthusiasts, collectors, and learners worldwide.
 
 ## 🌟 Features
 
-### For Citizens
-- **Report Waste Issues**: Report overflowing bins, request pickups, and report illegal dumping
-- **AI Waste Segregation**: Upload images to get AI-powered waste classification and disposal guidance
-- **Gamification & Rewards**: Earn points for eco-friendly actions and redeem rewards
-- **Find Nearby Bins**: Locate waste bins and recycling centers using interactive maps
-- **Track Impact**: Monitor personal environmental impact and community contributions
+### For Art Enthusiasts & Collectors
+- **Discover Artworks**: Browse authentic folk art pieces from traditional artists
+- **Artist Profiles**: Connect with master craftsmen and learn about their journey
+- **Art Collections**: Create and manage personal art collections
+- **Workshop Registration**: Learn directly from artists through workshops
+- **Favorites & Reviews**: Save favorite artworks and leave reviews
+- **Search & Filter**: Find artworks by artform, artist, price, and more
 
-### For Municipal Authorities
-- **Real-time Dashboard**: Monitor waste management operations with live analytics
-- **Route Optimization**: Optimize collection routes based on bin fill levels and locations
-- **Citizen Reports Management**: Track and respond to citizen reports efficiently
-- **Environmental Impact Tracking**: Monitor community-wide recycling and waste reduction
-- **Alert System**: Receive alerts for overflowing bins and maintenance needs
+### For Artists
+- **Artist Profiles**: Create detailed profiles showcasing your work and experience
+- **Artwork Gallery**: Upload and manage your artwork portfolio
+- **Workshop Hosting**: Create and manage art workshops
+- **Direct Sales**: Sell artworks directly to collectors
+- **Analytics**: Track views, likes, and engagement
+- **Verification System**: Get verified as an authentic folk artist
 
-### Technical Features
-- **IoT Integration**: Support for smart bin sensors (fill level, temperature, humidity)
-- **Google Maps Integration**: Interactive maps for bin locations and route planning
-- **Mobile Responsive**: Works seamlessly on desktop, tablet, and mobile devices
-- **Real-time Updates**: Live data updates using modern web technologies
-- **Secure Authentication**: JWT-based authentication with role-based access control
+### For Learners
+- **Workshop Discovery**: Find workshops by artform, skill level, and location
+- **Online & Offline Learning**: Participate in both virtual and in-person workshops
+- **Skill Progression**: Track your learning journey across different artforms
+- **Community**: Connect with fellow learners and artists
 
-## 🚀 Quick Start
+## 🎨 Supported Artforms
 
-### Prerequisites
-- Node.js (v14 or higher)
-- MongoDB (v4.4 or higher)
-- Google Maps API Key (optional, for maps functionality)
+### Warli Art
+- **Origin**: Maharashtra, India
+- **Characteristics**: Simple geometric shapes, tribal motifs, daily life depictions
+- **Materials**: Rice paste, natural pigments, cow dung
 
-### Installation
+### Madhubani Art
+- **Origin**: Bihar, India
+- **Characteristics**: Intricate patterns, mythological themes, nature motifs
+- **Materials**: Natural dyes, bamboo pen, handmade paper
 
-1. **Clone the repository**
-   ```bash
-   git clone <repository-url>
-   cd smart-waste-management
-   ```
+### Pithora Art
+- **Origin**: Gujarat, India
+- **Characteristics**: Sacred ritual art, tribal deities, vibrant colors
+- **Materials**: Natural pigments, cow dung, clay
 
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
+## 🚀 Technology Stack
 
-3. **Set up environment variables**
-   ```bash
-   cp .env.example .env
-   ```
-   Edit `.env` file with your configuration:
-   ```
-   PORT=3000
-   MONGODB_URI=mongodb://localhost:27017/smart_waste_management
-   JWT_SECRET=your_super_secret_jwt_key_here
-   GOOGLE_MAPS_API_KEY=your_google_maps_api_key_here
-   NODE_ENV=development
-   ```
+### Backend
+- **Node.js**: Runtime environment
+- **Express.js**: Web framework
+- **MongoDB**: NoSQL database
+- **Mongoose**: MongoDB object modeling
+- **JWT**: Authentication
+- **bcryptjs**: Password hashing
 
-4. **Start MongoDB**
-   Make sure MongoDB is running on your system.
+### Frontend
+- **HTML5**: Semantic markup
+- **CSS3**: Modern styling with CSS Grid and Flexbox
+- **JavaScript (ES6+)**: Interactive functionality
+- **Responsive Design**: Mobile-first approach
 
-5. **Initialize sample data**
-   ```bash
-   node init-data.js
-   ```
+### Key Libraries
+- **Font Awesome**: Icons
+- **Google Fonts**: Typography (Poppins, Playfair Display)
 
-6. **Start the application**
-   ```bash
-   # Development mode with auto-reload
-   npm run dev
-   
-   # Production mode
-   npm start
-   ```
+## 📋 Prerequisites
 
-7. **Access the application**
-   - Citizen Portal: http://localhost:3000
-   - Admin Dashboard: http://localhost:3000/admin
+Before running this application, make sure you have the following installed:
 
-## 👥 Default Login Credentials
+- **Node.js** (v14 or higher)
+- **MongoDB** (v4.4 or higher)
+- **npm** or **yarn**
 
-After running the initialization script, you can use these credentials:
+## 🛠️ Installation & Setup
 
-### Admin Account
-- **Email**: admin@ecowaste.com
-- **Password**: admin123
-- **Role**: Administrator
-
-### Citizen Accounts
-- **Email**: john@example.com
-- **Password**: user123
-- **Role**: Citizen
-
-- **Email**: jane@example.com
-- **Password**: user123
-- **Role**: Citizen
-
-### Collector Account
-- **Email**: collector@ecowaste.com
-- **Password**: collector123
-- **Role**: Waste Collector
-
-## 📱 Usage Guide
-
-### For Citizens
-
-1. **Registration/Login**
-   - Create an account or login with existing credentials
-   - Complete your profile with location information
-
-2. **Report Issues**
-   - Navigate to the "Report" section
-   - Select issue type (overflowing bin, pickup request, etc.)
-   - Add description and location
-   - Upload photos (optional)
-   - Submit to earn points
-
-3. **AI Waste Assistant**
-   - Go to "AI Assistant" section
-   - Upload a photo of waste item
-   - Get AI-powered classification and disposal guidance
-   - Search for specific waste items
-
-4. **Earn Rewards**
-   - Collect points by reporting issues and proper waste disposal
-   - Browse available rewards in the "Rewards" section
-   - Redeem points for discounts, coupons, and eco-friendly products
-   - Track your progress on the leaderboard
-
-5. **Find Bins**
-   - Use the "Map" section to locate nearby waste bins
-   - Filter by bin type (recyclable, biodegradable, hazardous, general)
-   - Get directions to the nearest appropriate bin
-
-### For Administrators
-
-1. **Dashboard Overview**
-   - Monitor key metrics (reports, bins, users, resolution rates)
-   - View real-time charts and trends
-   - Check critical alerts and system status
-
-2. **Manage Reports**
-   - Review citizen reports by status, type, and priority
-   - Assign reports to collectors
-   - Update report status and add resolution notes
-   - Track response times and citizen feedback
-
-3. **Bin Management**
-   - Monitor bin fill levels and status
-   - Schedule collections and maintenance
-   - View bin locations on interactive map
-   - Receive alerts for overflowing bins
-
-4. **User Management**
-   - View registered users and their activity
-   - Monitor user engagement and points
-   - Manage user accounts and permissions
-
-5. **Rewards System**
-   - Create and manage reward offerings
-   - Set point requirements and validity periods
-   - Track redemption statistics
-   - Partner with local businesses for rewards
-
-6. **Analytics**
-   - View environmental impact metrics
-   - Analyze waste collection efficiency
-   - Generate reports for stakeholders
-   - Optimize routes and schedules
-
-## 🏗️ Architecture
-
-### Backend (Node.js + Express)
-- **Authentication**: JWT-based with role-based access control
-- **Database**: MongoDB with Mongoose ODM
-- **API**: RESTful APIs for all operations
-- **File Upload**: Multer for image handling
-- **Security**: CORS, input validation, and sanitization
-
-### Frontend (HTML + CSS + JavaScript)
-- **Responsive Design**: Mobile-first approach with CSS Grid and Flexbox
-- **Interactive Maps**: Google Maps API integration
-- **Charts**: Chart.js for data visualization
-- **Real-time Updates**: Fetch API for dynamic content loading
-- **Progressive Enhancement**: Works without JavaScript for basic functionality
-
-### Database Schema
-- **Users**: Authentication, profile, points, and recycling stats
-- **Reports**: Citizen reports with location, images, and status tracking
-- **WasteBins**: Bin locations, types, fill levels, and sensor data
-- **Rewards**: Reward catalog with redemption tracking
-- **UserRewards**: Individual reward redemptions and usage
-
-## 🔧 Configuration
-
-### Google Maps API Setup
-1. Get a Google Maps API key from [Google Cloud Console](https://console.cloud.google.com/)
-2. Enable these APIs:
-   - Maps JavaScript API
-   - Places API
-   - Geocoding API
-3. Add the API key to your `.env` file
-4. Update the script tag in HTML files with your API key
-
-### MongoDB Configuration
-- Default connection: `mongodb://localhost:27017/smart_waste_management`
-- For production, use MongoDB Atlas or your preferred cloud MongoDB service
-- Update the `MONGODB_URI` in your `.env` file
-
-### Environment Variables
+### 1. Clone the Repository
 ```bash
-PORT=3000                                    # Server port
-MONGODB_URI=mongodb://localhost:27017/...   # MongoDB connection string
-JWT_SECRET=your_jwt_secret                   # JWT signing secret
-GOOGLE_MAPS_API_KEY=your_api_key            # Google Maps API key
-NODE_ENV=development                         # Environment (development/production)
+git clone <repository-url>
+cd folk-art-heritage-platform
 ```
 
-## 🧪 API Endpoints
+### 2. Install Dependencies
+```bash
+npm install
+```
+
+### 3. Environment Configuration
+Create a `.env` file in the root directory:
+```env
+MONGODB_URI=mongodb://localhost:27017/folk_art_heritage
+JWT_SECRET=your-secret-key-here
+PORT=3000
+NODE_ENV=development
+```
+
+### 4. Database Setup
+Make sure MongoDB is running on your system, then initialize the database with sample data:
+```bash
+npm run init-data
+```
+
+### 5. Start the Application
+```bash
+# Development mode with auto-reload
+npm run dev
+
+# Production mode
+npm start
+```
+
+The application will be available at `http://localhost:3000`
+
+## 📊 Database Schema
+
+### User Model
+- Basic user information (name, email, password)
+- Role-based access (user, artist, admin, curator)
+- Art preferences and favorites
+- Collections and workshop registrations
+
+### Artist Model
+- Artist profile and bio
+- Artform specialization
+- Awards and recognition
+- Social media links
+- Gallery and workshop management
+
+### Artwork Model
+- Artwork details and description
+- Materials and techniques used
+- Pricing and availability
+- Cultural significance
+- Likes, views, and comments
+
+### Workshop Model
+- Workshop details and schedule
+- Participant management
+- Pricing and materials
+- Reviews and ratings
+
+## 🔐 Authentication & Authorization
+
+The platform uses JWT (JSON Web Tokens) for authentication:
+
+- **Registration**: Users can register as art enthusiasts or artists
+- **Login**: Secure login with email and password
+- **Role-based Access**: Different permissions for users, artists, and admins
+- **Protected Routes**: API endpoints are protected based on user roles
+
+## 🎯 API Endpoints
 
 ### Authentication
 - `POST /api/auth/register` - User registration
 - `POST /api/auth/login` - User login
-- `GET /api/auth/profile` - Get user profile
+- `GET /api/auth/me` - Get current user profile
 - `PUT /api/auth/profile` - Update user profile
 
-### Reports
-- `GET /api/reports` - Get reports (with filtering)
-- `POST /api/reports` - Create new report
-- `GET /api/reports/:id` - Get specific report
-- `PUT /api/reports/:id/status` - Update report status
-- `POST /api/reports/:id/feedback` - Submit citizen feedback
+### Artists
+- `GET /api/artists` - Get all artists
+- `GET /api/artists/:id` - Get artist by ID
+- `POST /api/artists` - Create artist profile
+- `PUT /api/artists/:id` - Update artist profile
+- `POST /api/artists/:id/follow` - Follow/unfollow artist
+- `GET /api/artists/featured/list` - Get featured artists
 
-### Waste Bins
-- `GET /api/bins` - Get bins (with location filtering)
-- `POST /api/bins` - Create new bin (admin only)
-- `GET /api/bins/:id` - Get specific bin
-- `PUT /api/bins/:id` - Update bin information
-- `POST /api/bins/:id/collect` - Mark bin as collected
+### Artworks
+- `GET /api/artworks` - Get all artworks
+- `GET /api/artworks/:id` - Get artwork by ID
+- `POST /api/artworks` - Create artwork
+- `PUT /api/artworks/:id` - Update artwork
+- `POST /api/artworks/:id/like` - Like/unlike artwork
+- `GET /api/artworks/featured/list` - Get featured artworks
 
-### Rewards
-- `GET /api/rewards` - Get available rewards
-- `POST /api/rewards` - Create new reward (admin only)
-- `POST /api/rewards/:id/redeem` - Redeem reward
-- `GET /api/rewards/my-rewards` - Get user's rewards
-- `GET /api/rewards/leaderboard` - Get community leaderboard
+### Workshops
+- `GET /api/workshops` - Get all workshops
+- `GET /api/workshops/:id` - Get workshop by ID
+- `POST /api/workshops` - Create workshop
+- `POST /api/workshops/:id/register` - Register for workshop
+- `GET /api/workshops/upcoming/list` - Get upcoming workshops
 
-### AI Assistant
-- `POST /api/ai/classify` - Classify waste image
-- `GET /api/ai/guidelines` - Get waste segregation guidelines
-- `GET /api/ai/suggest/:query` - Search waste guidelines
+## 🎨 Frontend Features
 
-### Analytics
-- `GET /api/analytics/dashboard` - Dashboard overview data
-- `GET /api/analytics/environmental-impact` - Environmental metrics
-- `GET /api/analytics/my-stats` - User-specific statistics
+### Responsive Design
+- Mobile-first approach
+- CSS Grid and Flexbox layouts
+- Cultural color palette inspired by Indian folk art
+- Smooth animations and transitions
 
-## 🎨 Customization
+### Interactive Elements
+- Modal dialogs for login/registration
+- Dynamic content loading
+- Real-time search and filtering
+- Toast notifications
+- Loading spinners
 
-### Styling
-- Main styles: `/public/styles.css`
-- Admin styles: `/public/admin-styles.css`
-- Color scheme can be customized by modifying CSS custom properties
-- Responsive breakpoints: 768px (mobile), 1024px (tablet)
+### Cultural Elements
+- Traditional art patterns and motifs
+- Cultural color schemes
+- Indian typography and design elements
+- Folk art-inspired animations
 
-### Adding New Features
-1. **Backend**: Add new routes in `/routes/` directory
-2. **Frontend**: Update HTML structure and add JavaScript handlers
-3. **Database**: Create new models in `/models/` directory
-4. **API**: Update API documentation and test endpoints
+## 📱 Responsive Design
+
+The platform is fully responsive and works seamlessly across:
+- **Desktop** (1200px+)
+- **Tablet** (768px - 1199px)
+- **Mobile** (320px - 767px)
+
+## 🔧 Development
+
+### Project Structure
+```
+folk-art-heritage-platform/
+├── models/           # Database models
+├── routes/           # API routes
+├── middleware/       # Custom middleware
+├── public/           # Static files (HTML, CSS, JS)
+├── init-data.js      # Database initialization
+├── server.js         # Main server file
+├── package.json      # Dependencies and scripts
+└── README.md         # Project documentation
+```
+
+### Available Scripts
+```bash
+npm start          # Start production server
+npm run dev        # Start development server with nodemon
+npm run init-data  # Initialize database with sample data
+```
+
+### Code Style
+- Consistent indentation (2 spaces)
+- Descriptive variable and function names
+- Comprehensive error handling
+- JSDoc comments for functions
+- Modular code organization
+
+## 🧪 Testing
+
+To run tests (when implemented):
+```bash
+npm test
+```
 
 ## 🚀 Deployment
 
-### Production Setup
-1. **Environment Variables**
-   ```bash
-   NODE_ENV=production
-   MONGODB_URI=your_production_mongodb_uri
-   JWT_SECRET=your_strong_production_secret
-   ```
-
-2. **Build and Start**
-   ```bash
-   npm install --production
-   npm start
-   ```
-
-3. **Process Management** (recommended)
-   ```bash
-   npm install -g pm2
-   pm2 start server.js --name "waste-management"
-   pm2 startup
-   pm2 save
-   ```
+### Environment Variables for Production
+```env
+MONGODB_URI=your-production-mongodb-uri
+JWT_SECRET=your-production-secret-key
+PORT=3000
+NODE_ENV=production
+```
 
 ### Deployment Platforms
-- **Heroku**: Ready for deployment with included `Procfile`
-- **DigitalOcean**: Use App Platform or Droplets
-- **AWS**: Deploy on EC2, ECS, or Elastic Beanstalk
-- **Google Cloud**: Use App Engine or Compute Engine
+- **Heroku**: Easy deployment with Git integration
+- **Vercel**: Serverless deployment
+- **AWS**: Scalable cloud deployment
+- **DigitalOcean**: VPS deployment
 
 ## 🤝 Contributing
 
@@ -309,25 +266,35 @@ NODE_ENV=development                         # Environment (development/producti
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
-## 📝 License
+## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## 🙏 Acknowledgments
 
-- Chart.js for beautiful data visualizations
-- Google Maps API for location services
-- Font Awesome for icons
-- MongoDB for database solutions
-- All contributors and testers
+- Traditional Indian folk artists for preserving these art forms
+- Cultural heritage organizations for documentation
+- Open source community for tools and libraries
+- Art enthusiasts and collectors for supporting folk art
 
 ## 📞 Support
 
 For support and questions:
-- Create an issue in the GitHub repository
-- Email: support@ecowaste.com
-- Documentation: Check the `/docs` folder for detailed guides
+- Email: support@folkartheritage.com
+- GitHub Issues: [Create an issue](https://github.com/your-repo/issues)
+- Documentation: [Wiki](https://github.com/your-repo/wiki)
+
+## 🔮 Future Enhancements
+
+- **AI Art Recognition**: Identify artforms and styles
+- **Virtual Reality Workshops**: Immersive learning experiences
+- **Blockchain Integration**: Digital art ownership and provenance
+- **Mobile App**: Native iOS and Android applications
+- **Live Streaming**: Real-time artist demonstrations
+- **Marketplace**: Enhanced e-commerce features
+- **Community Features**: Forums and discussion boards
+- **Analytics Dashboard**: Advanced insights for artists
 
 ---
 
-**Made with 💚 for a cleaner, more sustainable future**
+**Made with ❤️ for preserving India's cultural heritage**

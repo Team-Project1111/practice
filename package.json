@@ -1,7 +1,7 @@
 {
-  "name": "smart-waste-management",
+  "name": "folk-art-heritage-platform",
   "version": "1.0.0",
-  "description": "Smart Waste Management & Recycling Platform",
+  "description": "Digital Platform for Traditional Indian Folk Artforms - Warli, Pithora, and Madhubani",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
@@ -10,10 +10,14 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
-    "waste-management",
-    "recycling",
-    "smart-city",
-    "environmental"
+    "folk-art",
+    "indian-art",
+    "warli",
+    "pithora",
+    "madhubani",
+    "cultural-heritage",
+    "artists-platform",
+    "digital-preservation"
   ],
   "author": "Your Name",
   "license": "MIT",

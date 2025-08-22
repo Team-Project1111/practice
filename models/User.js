@@ -11,6 +11,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
     unique: true,
+    trim: true,
     lowercase: true
   },
   password: {
@@ -18,61 +19,149 @@ const userSchema = new mongoose.Schema({
     required: true,
     minlength: 6
   },
+  phone: {
+    type: String,
+    trim: true
+  },
   role: {
     type: String,
-    enum: ['citizen', 'admin', 'collector'],
-    default: 'citizen'
+    enum: ['user', 'artist', 'admin', 'curator'],
+    default: 'user'
+  },
+  profileImage: {
+    type: String
+  },
+  bio: {
+    type: String,
+    maxlength: 500
   },
   location: {
-    address: String,
-    coordinates: {
-      lat: Number,
-      lng: Number
+    city: String,
+    state: String,
+    country: {
+      type: String,
+      default: 'India'
+    }
+  },
+  preferences: {
+    favoriteArtforms: [{
+      type: String,
+      enum: ['Warli', 'Pithora', 'Madhubani', 'Mixed']
+    }],
+    interests: [{
+      type: String,
+      trim: true
+    }],
+    newsletter: {
+      type: Boolean,
+      default: true
+    }
+  },
+  favorites: {
+    artworks: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Artwork'
+    }],
+    artists: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Artist'
+    }]
+  },
+  collections: [{
+    name: String,
+    description: String,
+    artworks: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Artwork'
+    }],
+    isPublic: {
+      type: Boolean,
+      default: false
     },
-    ward: String,
-    city: String
+    createdAt: {
+      type: Date,
+      default: Date.now
+    }
+  }],
+  workshops: [{
+    workshop: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Workshop'
+    },
+    status: {
+      type: String,
+      enum: ['Registered', 'Completed', 'Cancelled'],
+      default: 'Registered'
+    },
+    registrationDate: {
+      type: Date,
+      default: Date.now
+    }
+  }],
+  reviews: [{
+    artwork: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Artwork'
+    },
+    rating: {
+      type: Number,
+      min: 1,
+      max: 5
+    },
+    comment: String,
+    date: {
+      type: Date,
+      default: Date.now
+    }
+  }],
+  socialMedia: {
+    instagram: String,
+    facebook: String,
+    twitter: String
   },
-  points: {
-    type: Number,
-    default: 0
-  },
-  level: {
-    type: String,
-    enum: ['Bronze', 'Silver', 'Gold', 'Platinum'],
-    default: 'Bronze'
-  },
-  recyclingStats: {
-    totalReports: { type: Number, default: 0 },
-    recyclableItems: { type: Number, default: 0 },
-    biodegradableItems: { type: Number, default: 0 },
-    hazardousItems: { type: Number, default: 0 }
-  },
-  isActive: {
+  isVerified: {
     type: Boolean,
-    default: true
+    default: false
+  },
+  lastLogin: {
+    type: Date
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now
+  },
+  updatedAt: {
+    type: Date,
+    default: Date.now
   }
-}, {
-  timestamps: true
 });
 
 // Hash password before saving
 userSchema.pre('save', async function(next) {
   if (!this.isModified('password')) return next();
-  this.password = await bcrypt.hash(this.password, 12);
-  next();
+  
+  try {
+    const salt = await bcrypt.genSalt(10);
+    this.password = await bcrypt.hash(this.password, salt);
+    this.updatedAt = Date.now();
+    next();
+  } catch (error) {
+    next(error);
+  }
 });
 
-// Compare password method
+// Method to compare password
 userSchema.methods.comparePassword = async function(candidatePassword) {
-  return await bcrypt.compare(candidatePassword, this.password);
+  return bcrypt.compare(candidatePassword, this.password);
 };
 
-// Update user level based on points
-userSchema.methods.updateLevel = function() {
-  if (this.points >= 10000) this.level = 'Platinum';
-  else if (this.points >= 5000) this.level = 'Gold';
-  else if (this.points >= 2000) this.level = 'Silver';
-  else this.level = 'Bronze';
+// Method to get public profile
+userSchema.methods.getPublicProfile = function() {
+  const userObject = this.toObject();
+  delete userObject.password;
+  delete userObject.email;
+  delete userObject.phone;
+  return userObject;
 };
 
 module.exports = mongoose.model('User', userSchema);
