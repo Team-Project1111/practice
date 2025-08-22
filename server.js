@@ -13,7 +13,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
 // MongoDB Connection
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/smart_waste_management', {
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/folk_art_heritage', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })
@@ -22,11 +22,9 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/smart_was
 
 // Routes
 app.use('/api/auth', require('./routes/auth'));
-app.use('/api/reports', require('./routes/reports'));
-app.use('/api/bins', require('./routes/bins'));
-app.use('/api/rewards', require('./routes/rewards'));
-app.use('/api/analytics', require('./routes/analytics'));
-app.use('/api/ai', require('./routes/ai'));
+app.use('/api/artists', require('./routes/artists'));
+app.use('/api/artworks', require('./routes/artworks'));
+app.use('/api/workshops', require('./routes/workshops'));
 
 // Serve static files
 app.get('/', (req, res) => {
@@ -39,6 +37,6 @@ app.get('/admin', (req, res) => {
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  console.log(`Folk Art Heritage Platform running on port ${PORT}`);
   console.log(`Visit: http://localhost:${PORT}`);
 });
